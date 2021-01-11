@@ -18,9 +18,6 @@ env.load([
 
 
 const { PORT } = process.env;
-import hackerNews from "./hacker-news.crawler";
-hackerNews.crawList();
-
 // Instantiate an Express Application
 
 const app = express();
