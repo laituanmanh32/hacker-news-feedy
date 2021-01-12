@@ -1,13 +1,18 @@
 import p = require('phin');
 import cheerio = require('cheerio');
 import puppeteer = require('puppeteer');
+// @ts-ignore
+import {Root} from "cheerio";
 
 export abstract class ACrawler<T> {
     scraper: 'phin' | 'puppeteer';
 
     public async craw(url: string): Promise<T> {
         const html = await this.loadHTML(url);
-        return this.handleHtml(html);
+        const $root = cheerio.load(html, {
+            decodeEntities: false
+        });
+        return this.handleHtml($root);
     }
 
     private async loadHTML(url): Promise<string> {
@@ -28,6 +33,6 @@ export abstract class ACrawler<T> {
         return content;
     }
 
-    abstract handleHtml(html: string): T;
+    abstract handleHtml($: Root): T;
 
 }

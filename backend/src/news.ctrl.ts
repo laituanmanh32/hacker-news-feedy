@@ -2,6 +2,7 @@ import { ACrawler } from 'crawler/ACrawler';
 import { SpectrumCrawler } from './crawler/spectrum.crawler';
 import { News } from 'news.model';
 import hackerNewsCrawler, { HackerNewsList } from './crawler/hacker-news.crawler';
+import {BuzzFeedNewsCrawler} from "./crawler/buzz-feed-news.crawler";
 
 const Queue = require('queue');
 
@@ -16,6 +17,9 @@ function getCrawler(url: string): ACrawler<News> {
 
     if(url.includes('spectrum.ieee.org')) {
         return new SpectrumCrawler();
+    }
+    if(url.includes('buzzfeednews.com')) {
+        return new BuzzFeedNewsCrawler();
     }
 
     return null;

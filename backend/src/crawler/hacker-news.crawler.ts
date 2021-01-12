@@ -1,5 +1,6 @@
-import { ACrawler } from "./ACrawler";
-import cheerio = require('cheerio');
+import {ACrawler} from "./ACrawler";
+// @ts-ignore
+import {Root} from "cheerio";
 
 export interface HackerNewsItem {
     id: string;
@@ -11,13 +12,9 @@ export interface HackerNewsItem {
 export type HackerNewsList = HackerNewsItem[];
 
 export class HackerNewsCrawler extends ACrawler<HackerNewsList> {
-    handleHtml(html: string): HackerNewsList {
-        const $ = cheerio.load(html);
-
+    handleHtml($: Root): HackerNewsList {
         const $athings = $('.athing');
-
         const hackerNewsList: HackerNewsList = $athings.toArray().map($athing => {
-
             const $storylink = $($athing).find('.storylink');
 
             const id = $($athing).attr('id');
@@ -34,7 +31,7 @@ export class HackerNewsCrawler extends ACrawler<HackerNewsList> {
 
         return hackerNewsList;
     }
-    
+
 }
 
 const hackerNewsCrawler = new HackerNewsCrawler();

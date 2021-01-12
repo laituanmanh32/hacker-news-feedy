@@ -13,7 +13,6 @@ import helmet from "helmet"
 
 env.load([
     'PORT',
-    'SECRET'
 ]);
 
 
