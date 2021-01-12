@@ -1,6 +1,6 @@
 import { ACrawler } from 'crawler/ACrawler';
 import { SpectrumCrawler } from './crawler/spectrum.crawler';
-import { News } from 'news.model';
+import { News } from '../../shared/news.model';
 import hackerNewsCrawler, { HackerNewsList } from './crawler/hacker-news.crawler';
 import {BuzzFeedNewsCrawler} from "./crawler/buzz-feed-news.crawler";
 
@@ -10,7 +10,7 @@ let newsList: News[] = [];
 
 const newsFetchingQueue = Queue({
     autostart: true,
-    concurrency: 2,
+    concurrency: 1,
 });
 
 function getCrawler(url: string): ACrawler<News> {
@@ -29,11 +29,11 @@ async function fetchNews() {
     let page = 0;
     let hackerNewsList: HackerNewsList = [];
     while(true) {
+        page++;
         let newsItems = await hackerNewsCrawler.craw(`https://news.ycombinator.com/best?p=${page}`);
         if(!newsItems.length) {
             break;
         }
-        page++;
         hackerNewsList = hackerNewsList.concat(newsItems);
     }
 

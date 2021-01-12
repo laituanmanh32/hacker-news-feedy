@@ -1,5 +1,5 @@
 import {ACrawler} from "./ACrawler";
-import {News} from "../news.model";
+import {News} from "../../../shared/news.model";
 // @ts-ignore
 import {Root} from "cheerio";
 
