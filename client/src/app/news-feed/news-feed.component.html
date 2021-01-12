@@ -1,0 +1,7 @@
+<div class="bg-grey-light w-full h-full flex flex-col justify-center items-center px-4">
+  <div class="bg-white rounded shadow hover:shadow-md duration-4" *ngFor="let news of newsService.news$ | async" (click)="toDetail(news)">
+    <h2>{{news.title}}</h2>
+    <span>{{news.excerp}}</span>
+  </div>
+
+</div>
