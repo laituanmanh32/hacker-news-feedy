@@ -1,0 +1,24 @@
+version: '3.7'
+services:
+  api:
+    image: laituanmanh/hacker-news-feed-backend:latest
+    restart: always
+    environment:
+      PORT: 80
+    expose:
+      - 80
+  web:
+    image: laituanmanh/hacker-news-feed-frontend:latest
+    restart: always
+    expose:
+      - 80
+  nginx:
+    image: nginx:alpine
+    restart: always
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/nginx.conf:ro
+    ports:
+      - 2080:80
+    depends_on:
+      - api
+      - web

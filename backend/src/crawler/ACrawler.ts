@@ -18,7 +18,10 @@ export abstract class ACrawler<T> {
     private async loadHTML(url): Promise<string> {
         let content = '';
         if(this.scraper == 'puppeteer') {
-            const browser = await puppeteer.launch();
+            const browser = await puppeteer.launch({
+                headless: true,
+                args: ['--no-sandbox', '--disable-dev-shm-usage'] }
+                );
             const page = await browser.newPage();
             await page.goto(url);
             await page.waitForTimeout(500);
