@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {News} from "../../../../shared/news.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Subscription} from "rxjs";
@@ -16,13 +16,22 @@ export class NewsDetailComponent implements OnInit {
   routerSub: Subscription;
 
   constructor(private route: ActivatedRoute,
-              public newsService: NewsService) {
-    this.routerSub = route.paramMap.subscribe(param => {
-      this.news = this.newsService.getNews(param.get('id'));
+              private router: Router,
+              public newsService: NewsService,
+              private ref: ChangeDetectorRef) {
+    this.routerSub = route.paramMap.subscribe(async param => {
+      this.news = await this.newsService.getNews(param.get('id'));
+      this.ref.detectChanges()
     })
   }
 
   ngOnInit(): void {
+  }
+
+  back() {
+    console.log("BACK")
+    this.router.navigateByUrl('/');
+
   }
 
 }

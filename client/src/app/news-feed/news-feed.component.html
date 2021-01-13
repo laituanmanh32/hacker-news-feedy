@@ -1,7 +1,15 @@
-<div class="bg-grey-light w-full h-full flex flex-col justify-center items-center px-4">
-  <div class="bg-white rounded shadow hover:shadow-md duration-4" *ngFor="let news of newsService.news$ | async" (click)="toDetail(news)">
-    <h2>{{news.title}}</h2>
-    <span>{{news.excerp}}</span>
+<div class="flex flex-col h-screen">
+  <div class="text-3xl text-center p-3 shadow w-full mb-2">
+    <span>Today Best News</span>
+  </div>
+  <div class="flex-1 bg-grey-light px-4 overflow-y-auto">
+    <div class="bg-white rounded shadow hover:shadow-md duration-4 mb-4 p-3 md:w-1/2 md:mx-auto cursor-pointer"
+         *ngFor="let news of newsService.news$ | async" (click)="toDetail(news)">
+      <h2 class="text-3xl font-bold mb-2">{{news.title}}</h2>
+      <img *ngIf="news.image" [src]="news.image" alt="">
+      <span>{{news.excerp}}</span>
+      <div class="text-gray-500 italic mt-5">{{news.source}}</div>
+    </div>
   </div>
 
 </div>

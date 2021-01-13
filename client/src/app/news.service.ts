@@ -14,8 +14,12 @@ export class NewsService {
     this.news$.next(news as News[]);
   }
 
-  getNews(id) {
-    return this.news$.getValue().find(news => news.id == id);
+  async getNews(id) {
+    let news = this.news$.getValue().find(news => news.id == id);
+    if (!news) {
+      news = await this.http.get(`api/news/${id}`).toPromise() as News;
+    }
+    return news;
   }
 
 }
