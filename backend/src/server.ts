@@ -22,8 +22,9 @@ const { PORT } = process.env;
 const app = express();
 
 import news from './news.ctrl';
-app.use('/api/news', news.list);
 app.use('/api/news/:id', news.detail);
+app.use('/api/news', news.list);
+
 
 
 // Configure Express App Instance

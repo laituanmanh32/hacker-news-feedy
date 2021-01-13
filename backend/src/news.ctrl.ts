@@ -4,7 +4,6 @@ import { News } from '../../shared/news.model';
 import hackerNewsCrawler, { HackerNewsList } from './crawler/hacker-news.crawler';
 import {BuzzFeedNewsCrawler} from "./crawler/buzz-feed-news.crawler";
 import {NYTimesCrawler} from "./crawler/ny-times.crawler";
-const url = require('url');
 
 const Queue = require('queue');
 
@@ -41,7 +40,7 @@ async function fetchNews() {
         }
         hackerNewsList = hackerNewsList.concat(newsItems);
     }
-    
+
     hackerNewsList.forEach(HNews => {
         newsFetchingQueue.push(async (cb) => {
             let crawler = getCrawler(HNews.url);
@@ -67,6 +66,7 @@ export default {
         res.send(newsList);
     },
     detail: (req, res) => {
-        res.send("DETAIL OK");
+        const id = req.params['id'];
+        res.send(newsList.find(news => news.id == id));
     }
 }
