@@ -5,4 +5,5 @@ export interface News {
     excerp: string;
     body_html: string;
     origin_url: string;
+    source: string;
 }

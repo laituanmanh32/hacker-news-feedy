@@ -16,13 +16,18 @@ export class BuzzFeedNewsCrawler extends ACrawler<News> {
         $article.find('.ad-inline').remove();
         let body_html = $article.html();
         body_html = body_html.replace(/\n/g, '');
+
+        let excerp = $('.news-article-header__dek').text();
+        let image = $($article).find('img').first().attr('src');
+        image = image.split('?')[0];
         return {
             id: null,
             title: null,
-            excerp: null,
+            excerp: excerp,
             body_html: body_html,
-            image: null,
+            image: image,
             origin_url: null,
+            source: 'BuzzFeedNews'
         };
     }
 
