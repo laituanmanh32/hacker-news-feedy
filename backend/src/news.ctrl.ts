@@ -3,6 +3,8 @@ import { SpectrumCrawler } from './crawler/spectrum.crawler';
 import { News } from '../../shared/news.model';
 import hackerNewsCrawler, { HackerNewsList } from './crawler/hacker-news.crawler';
 import {BuzzFeedNewsCrawler} from "./crawler/buzz-feed-news.crawler";
+import {NYTimesCrawler} from "./crawler/ny-times.crawler";
+const url = require('url');
 
 const Queue = require('queue');
 
@@ -21,6 +23,9 @@ function getCrawler(url: string): ACrawler<News> {
     if(url.includes('buzzfeednews.com')) {
         return new BuzzFeedNewsCrawler();
     }
+    if(url.includes('www.nytimes.com')) {
+        return new NYTimesCrawler();
+    }
 
     return null;
 }
@@ -36,11 +41,11 @@ async function fetchNews() {
         }
         hackerNewsList = hackerNewsList.concat(newsItems);
     }
-
+    
     hackerNewsList.forEach(HNews => {
         newsFetchingQueue.push(async (cb) => {
             let crawler = getCrawler(HNews.url);
-            if(!crawler) {
+            if (!crawler) {
                 console.error("url is not supported", HNews);
                 cb();
                 return;
@@ -50,9 +55,8 @@ async function fetchNews() {
             news.title = HNews.title;
             news.origin_url = HNews.url;
             newsList.push(news);
-        })
+        });
     })
-
     setTimeout(() => fetchNews(), 3600000);
 }
 
