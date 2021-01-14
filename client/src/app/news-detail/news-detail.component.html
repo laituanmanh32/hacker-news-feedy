@@ -1,21 +1,24 @@
 
 <div class="flex flex-col h-screen">
-  <div class="text-3xl p-3 shadow w-full mb-2 flex items-center">
-    <button (click)="back()">
-      <svg style="width: 36px" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-      </svg>
-    </button>
-    <span class="flex-1">Today Best News</span>
+  <div class="text-3xl p-3 shadow w-full mb-2 ">
+    <div class="flex items-center md:w-1/2 md:mx-auto">
+      <button (click)="back()">
+        <svg style="width: 36px" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+      <span class="flex-1">Today Best News</span>
+    </div>
+
   </div>
-  <div class="flex-1 bg-grey-light px-4 overflow-y-auto">
+  <div class="flex-1 bg-grey-light px-4 overflow-y-auto md:w-1/2 md:mx-auto">
     <div class="flex-1 overflow-y-auto font-sans">
-      <h1 class="text-4xl">{{news?.title}}</h1>
-      <div [innerHTML]="news?.body_html"></div>
+      <h1 class="text-4xl mb-10 mt-5 text-center ">{{news?.title}}</h1>
+      <div class="article-body text-justify" [innerHTML]="news?.body_html"></div>
     </div>
 
     <div class="mt-10 text-gray-400 italic">
-      Origin post: <a [href]="news?.origin_url">{{news?.title}}</a>
+      Origin post: <a [href]="news?.origin_url" target="_blank">{{news?.title}}</a>
     </div>
   </div>
 
