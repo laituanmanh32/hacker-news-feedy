@@ -4,10 +4,11 @@ import { News } from '../../shared/news.model';
 import hackerNewsCrawler, { HackerNewsList } from './crawler/hacker-news.crawler';
 import {BuzzFeedNewsCrawler} from "./crawler/buzz-feed-news.crawler";
 import {NYTimesCrawler} from "./crawler/ny-times.crawler";
+import List from 'identical-list';
 
 const Queue = require('queue');
 
-let newsList: News[] = []; 
+let newsList: List<News> = new List();
 
 const newsFetchingQueue = Queue({
     autostart: true,
@@ -53,7 +54,7 @@ async function fetchNews() {
             news.id = HNews.id;
             news.title = HNews.title;
             news.origin_url = HNews.url;
-            newsList.push(news);
+            newsList.add(news);
         });
     })
     setTimeout(() => fetchNews(), 3600000);
