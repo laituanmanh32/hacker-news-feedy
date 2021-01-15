@@ -68,6 +68,6 @@ export default {
     },
     detail: (req, res) => {
         const id = req.params['id'];
-        res.send(newsList.find(news => news.id == id));
+        res.send(newsList.get(id));
     }
 }
